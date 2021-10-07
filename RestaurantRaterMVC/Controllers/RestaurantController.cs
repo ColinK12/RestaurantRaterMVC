@@ -92,7 +92,21 @@ namespace RestaurantRaterMVC.Controllers
                 _db.SaveChanges();
                 return RedirectToAction("index");
             }
-            return View(restaurant)
+            return View(restaurant);
+        }
+        //Get: Restaurant/Details/{id}
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+            Restaurant restaurant = _db.Restaurants.Find(id);
+            if (restaurant == null)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);
+            }
+            return View(restaurant);
         }
     }
  }
